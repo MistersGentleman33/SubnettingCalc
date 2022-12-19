@@ -2,9 +2,23 @@ import sys
 from os import system
 
 try:
-    def subnetting(ipaddress, n_subnetting):
-        pass
+    def found_new_mask(ipaddress, n_subnetting):
+        """
+        Variable ipaddress looks like this: [192, 123, 1, 0, C] which contains the ip separate and the class
+        The variable n_subnetting contains the number of subnets to calculate """
 
+        new_mask = []
+        n_subnetting_aux = n_subnetting
+        while n_subnetting_aux >= 8:
+            new_mask.append("1" * 8)
+            n_subnetting_aux -= 8
+        new_mask.append(n_subnetting_aux * "1" + "0" * (8 - n_subnetting_aux))
+        while len(new_mask) < 4:
+            new_mask.append("0" * 8)
+        new_mask = [int(x, 2) for x in new_mask]
+        print("The new mask is {}".format(new_mask))
+
+        return new_mask
 
     def identify_class(ipaddress):
         if 1 <= ipaddress[0] <= 126:
@@ -28,7 +42,7 @@ try:
 
 
     def main():
-        n_subnetting = sys.argv[2]     # This takes args of subnetting from terminal
+        n_subnetting = sys.argv[2]  # This takes args of subnetting from terminal
 
         try:
             n_subnetting = int(sys.argv[2])
@@ -40,10 +54,10 @@ try:
         ipaddress = sys.argv[1]  # This takes args of IP from terminal
         ipaddress = ipaddress.split(".")
         ipaddress = [int(x) for x in ipaddress]  # Converting to integer the IP
-        ip_class = identify_class(ipaddress)  # Return a list with the IP and the class
+        ipaddress = identify_class(ipaddress)  # Return a list with the IP and the class
 
         # Function subnetting
-        subnetting(ip_class, n_subnetting)
+        new_mask = found_new_mask(ipaddress, n_subnetting)
 
 
     if __name__ == "__main__":
