@@ -9,9 +9,9 @@ try:
         print("\n")
         zero = 0
 
-        for x in new_mask:
+        for x in new_mask_bin:
             zero += x.count("0")
-        print(zero)
+        host = (2 ** zero) - 2
 
         for i in range(2 ** nets):
 
@@ -47,8 +47,36 @@ try:
                 print("Host/Net:  {}".format(host))
 
 
-    def subnetting_class_b(ipaddress, nets, new_mask, n_subnetting):
-        pass
+    def subnetting_class_b(ipaddress, nets, new_mask, n_subnetting, new_mask_bin):
+        #   Here I calculate the jump between nets (256 - new mask)
+        jump_net = 256 - new_mask[2]
+        jump_net_aux = jump_net
+        print("\n")
+        zero = 0
+
+        for x in new_mask_bin:
+            zero += x.count("0")
+        host = (2 ** zero) - 2
+
+        for i in range(2 ** nets):
+            if i + 1 == 1:
+                print("{}.".format(i + 1))
+                print("Network:   {}.{}.{}.{}/{}".format(ipaddress[0], ipaddress[1], 0, 0, n_subnetting))
+                print("HostMin:   {}.{}.{}.{}".format(ipaddress[0], ipaddress[1], 0, 1))
+                print("HostMax:   {}.{}.{}.{}".format(ipaddress[0], ipaddress[1], jump_net - 1, 254))
+                print("Broadcast: {}.{}.{}.{}".format(ipaddress[0], ipaddress[1], jump_net - 1, 255))
+                print("Hosts/Net: {}".format(host))
+
+            else:
+                print("{}.".format(i + 1))
+                print("Network:   {}.{}.{}.{}/{}".format(ipaddress[0], ipaddress[1], jump_net, 0, n_subnetting))
+                print("HostMin:   {}.{}.{}.{}".format(ipaddress[0], ipaddress[1], jump_net, 1))
+                jump_net += jump_net_aux
+                print("HostMax:   {}.{}.{}.{}".format(ipaddress[0], ipaddress[1], jump_net - 1, 254))
+                print("Broadcast: {}.{}.{}.{}".format(ipaddress[0], ipaddress[1], jump_net - 1, 255))
+                print("Host/Net:  {}".format(host))
+
+
 
 
     def subnetting_class_c(ipaddress, nets, new_mask, n_subnetting):
@@ -166,7 +194,7 @@ try:
             subnetting_class_a(ipaddress, nets, new_mask, n_subnetting, new_mask_bin)
 
         elif ipaddress[4] == "B":
-            subnetting_class_b(ipaddress, nets, new_mask, n_subnetting)
+            subnetting_class_b(ipaddress, nets, new_mask, n_subnetting, new_mask_bin)
 
         elif ipaddress[4] == "C":
             subnetting_class_c(ipaddress, nets, new_mask, n_subnetting)
