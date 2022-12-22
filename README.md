@@ -99,3 +99,14 @@ Para usar la calculadora solo hay que ingresar por consola desde el path donde s
 Ejemplo:
 
 ###### SubnettingCalc.py 192.168.1.0 27
+
+
+## CONCLUSION
+Con la creación de este proyecto pudimos reforzar los conocimientos y gracias a eso nace con el propósito de difundir información veraz y de calidad sobre las técnicas tradicionales y modernas del cálculo de redes empleando distintos algoritmos como los que aparecen en la calculadora IP.
+Con la siguiente calculadora de subnetting y a partir de la dirección IP que pongamos en el campo y la subnet mask, podremos obtener el broadcast, la dirección de red, la wildcard mask y  el host range, además, podemos pasar a una nueva supernet si cambiamos la netmask consiguiendo de esta manera generar nuevas subnets (subredes ip).
+
+
+## BIBLIOGRAFIA
+- https://www.udb.edu.sv/udb_files/recursos_guias/informatica-tecnologico/redes-de-comunicacion/2020/i/guia-6.pdf
+
+- https://www.geeksforgeeks.org/
